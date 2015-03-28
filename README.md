@@ -7,13 +7,13 @@ This module exports all the commands that Redis supports, using the API of http:
 ## Install
 
 ```shell
-$ npm install redis-commands
+$ npm install ioredis-commands
 ```
 
 ## Usage
 
 ```javascript
-var commands = require('redis-commands');
+var commands = require('ioredis-commands');
 
 Object.keys(commands).forEach(function (command) {
   console.log(command);
