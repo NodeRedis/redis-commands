@@ -1,6 +1,6 @@
 {
   "name": "ioredis-commands",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Redis commands",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/luin/redis-commonds",
   "devDependencies": {
+    "ioredis": "^1.0.8",
     "mocha": "^2.2.1",
     "superfetch": "^1.1.0"
   }
