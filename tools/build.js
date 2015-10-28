@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var Redis = require('ioredis');
 var redis = new Redis(process.env.REDIS_URI);
+var stringify = require('json-stable-stringify');
 
 redis.info(function (err, info) {
   var version = info.match(/redis_version:([\d\.]+)/)[1];
@@ -19,7 +20,7 @@ redis.info(function (err, info) {
       };
       return prev;
     }, {});
-    contents += 'module.exports = ' + JSON.stringify(commands, null, '  ') + ';\n';
+    contents += 'module.exports = ' + stringify(commands, { space: '  ' }) + ';\n';
     fs.writeFile(path.join(__dirname, '..', 'index.js'), contents);
   });
 });
