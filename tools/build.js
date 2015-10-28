@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var Redis = require('ioredis');
-var redis = new Redis();
+var redis = new Redis(process.env.REDIS_URI);
 
 redis.info(function (err, info) {
   var version = info.match(/redis_version:([\d\.]+)/)[1];
