@@ -1,6 +1,6 @@
 {
-  "name": "ioredis-commands",
-  "version": "4.0.0",
+  "name": "redis-commands",
+  "version": "1.0.0",
   "description": "Redis commands",
   "main": "index.js",
   "scripts": {
