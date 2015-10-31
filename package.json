@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/luin/redis-commands.git"
+    "url": "https://github.com/NodeRedis/redis-commands.git"
   },
   "keywords": [
     "redis",
@@ -18,9 +18,9 @@
   "author": "luin <i@zihua.li> (http://zihua.li)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/luin/redis-commonds/issues"
+    "url": "https://github.com/NodeRedis/redis-commonds/issues"
   },
-  "homepage": "https://github.com/luin/redis-commonds",
+  "homepage": "https://github.com/NodeRedis/redis-commonds",
   "devDependencies": {
     "chai": "^3.4.0",
     "ioredis": "^1.0.8",
