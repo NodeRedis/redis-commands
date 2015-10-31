@@ -1,7 +1,26 @@
+'use strict';
+
 var commands = require('./commands');
 
-exports.commands = Object.keys(commands);
+/**
+ * Redis command list
+ *
+ * All commands are lowercased.
+ *
+ * @var {string[]}
+ * @public
+ */
+exports.list = Object.keys(commands);
 
+/**
+ * Check if the command has the flag
+ *
+ * Some of possible flags: readonly, noscript, loading
+ * @param {string} commandName - the command name
+ * @param {string} flag - the flag to check
+ * @return {boolean} result
+ * @public
+ */
 exports.hasFlag = function (commandName, flag) {
   var command = commands[commandName];
   if (!command) {
@@ -19,6 +38,22 @@ exports.hasFlag = function (commandName, flag) {
   return false;
 };
 
+/**
+ * Get indexes of keys in the command arguments
+ *
+ * @param {string} commandName - the command name
+ * @param {string[]} args - the arguments of the command
+ * @param {object} [options] - options
+ * @param {boolean} [options.parseExternalKey] - parse external keys
+ * @return {number[]} - the list of the index
+ * @public
+ *
+ * @example
+ * ```javascript
+ * getKeyIndexes('set', ['key', 'value']) // [0]
+ * getKeyIndexes('mget', ['key1', 'key2']) // [0, 1]
+ * ```
+ */
 exports.getKeyIndexes = function (commandName, args, options) {
   var command = commands[commandName];
   if (!command) {
@@ -29,7 +64,7 @@ exports.getKeyIndexes = function (commandName, args, options) {
     throw new Error('Expect args to be an array');
   }
 
-  var parsePartialKey = options && options.parsePartialKey;
+  var parseExternalKey = options && options.parseExternalKey;
 
   var keys = [];
   var i, range, keyStart, keyStop;
@@ -51,16 +86,16 @@ exports.getKeyIndexes = function (commandName, args, options) {
       if (directive === 'GET') {
         i += 1;
         if (args[i] !== '#') {
-          if (parsePartialKey && (range = getPartialKeyRange(args[i]))) {
-            keys.push([i, range]);
+          if (parseExternalKey) {
+            keys.push([i, getExternalKeyNameLength(args[i])]);
           } else {
             keys.push(i);
           }
         }
       } else if (directive === 'BY') {
         i += 1;
-        if (parsePartialKey && (range = getPartialKeyRange(args[i]))) {
-          keys.push([i, range]);
+        if (parseExternalKey) {
+          keys.push([i, getExternalKeyNameLength(args[i])]);
         } else {
           keys.push(i);
         }
@@ -79,25 +114,23 @@ exports.getKeyIndexes = function (commandName, args, options) {
     }
     break;
   default:
-    keyStart = def.keyStart - 1;
-    keyStop = def.keyStop > 0 ? def.keyStop : args.length + def.keyStop + 1;
-    if (keyStart >= 0 && keyStop <= args.length && keyStop > keyStart && def.step > 0) {
-      for (i = keyStart; i < keyStop; i += def.step) {
+    keyStart = command.keyStart - 1;
+    keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
+    if (keyStart >= 0 && keyStop <= args.length && keyStop > keyStart && command.step > 0) {
+      for (i = keyStart; i < keyStop; i += command.step) {
         keys.push(i);
       }
     }
     break;
   }
+
+  return keys;
 };
 
-function getPartialKeyRange(key) {
-  var starPos = key.indexOf('*');
-  if (starPos === -1) {
-    return;
+function getExternalKeyNameLength(key) {
+  if (typeof key !== 'string') {
+    key = String(key);
   }
-  var hashPos = key.indexOf('->', starPos + 1);
-  if (hashPos === 1) {
-    return;
-  }
-  return [0, hashPos];
+  var hashPos = key.indexOf('->');
+  return hashPos === -1 ? key.length : hashPos;
 }

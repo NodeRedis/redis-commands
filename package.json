@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/luin/redis-commonds",
   "devDependencies": {
+    "chai": "^3.4.0",
     "ioredis": "^1.0.8",
     "json-stable-stringify": "^1.0.0",
-    "mocha": "^2.2.1",
-    "superfetch": "^1.1.0"
+    "mocha": "^2.2.1"
   }
 }
