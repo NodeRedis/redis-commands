@@ -16,9 +16,25 @@ $ npm install redis-commands
 var commands = require('redis-commands');
 ```
 
+`.list` is an array contains all the lowercased commands:
+
+```javascript
 commands.list.forEach(function (command) {
   console.log(command);
 });
+```
+
+`.hasFlag` is used to check if the command has the flag:
+
+```javascript
+commands.hasFlag('set', 'readonly') // false
+```
+
+`.getKeyIndexes` is used to get the indexes of keys in the command arguments:
+
+```javascript
+commands.getKeyIndexes('set', ['key', 'value']) // [0]
+commands.getKeyIndexes('mget', ['key1', 'key2']) // [0, 1]
 ```
 
 ## Acknowledgment
