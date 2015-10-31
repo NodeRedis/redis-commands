@@ -1,6 +1,6 @@
 # Redis Commands
 
-[![Build Status](https://travis-ci.org/NodeRedis/redis-commands.png?branch=master)](https://travis-ci.org/NodeRedis/redis-commands)
+[![Build Status](https://travis-ci.org/luin/redis-commands.png?branch=master)](https://travis-ci.org/luin/redis-commands)
 
 This module exports all the commands that Redis supports.
 
