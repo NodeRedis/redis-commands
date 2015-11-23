@@ -10,7 +10,9 @@ var commands = require('./commands');
  * @var {string[]}
  * @public
  */
-exports.list = Object.keys(commands);
+var commandsList = Object.keys(commands);
+commandsList.push('quit');
+exports.list = commandsList;
 
 /**
  * Check if the command has the flag
