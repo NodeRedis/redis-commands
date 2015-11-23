@@ -15,6 +15,10 @@ describe('redis-commands', function () {
       });
     });
 
+    it('should ensure quit command is added to the commands list', function () {
+      expect(commands.list.indexOf('quit')).not.to.eql(-1);
+    });
+
     it('should not contain multi-word commands', function () {
       commands.list.forEach(function (command) {
         expect(command.indexOf(' ')).to.eql(-1);
