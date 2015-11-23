@@ -13,7 +13,8 @@
   },
   "keywords": [
     "redis",
-    "commands"
+    "commands",
+    "prefix"
   ],
   "author": "luin <i@zihua.li> (http://zihua.li)",
   "license": "MIT",
