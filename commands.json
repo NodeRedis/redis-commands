@@ -264,13 +264,13 @@
     "step": 0
   },
   "exists": {
-    "arity": 2,
+    "arity": -2,
     "flags": [
       "readonly",
       "fast"
     ],
     "keyStart": 1,
-    "keyStop": 1,
+    "keyStop": -1,
     "step": 1
   },
   "expire": {
@@ -294,7 +294,7 @@
     "step": 1
   },
   "flushall": {
-    "arity": 1,
+    "arity": -1,
     "flags": [
       "write"
     ],
@@ -303,13 +303,68 @@
     "step": 0
   },
   "flushdb": {
-    "arity": 1,
+    "arity": -1,
     "flags": [
       "write"
     ],
     "keyStart": 0,
     "keyStop": 0,
     "step": 0
+  },
+  "geoadd": {
+    "arity": -5,
+    "flags": [
+      "write",
+      "denyoom"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "geodist": {
+    "arity": -4,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "geohash": {
+    "arity": -2,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "geopos": {
+    "arity": -2,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "georadius": {
+    "arity": -6,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "georadiusbymember": {
+    "arity": -5,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
   },
   "get": {
     "arity": 2,
@@ -476,6 +531,16 @@
     "flags": [
       "write",
       "denyoom",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
+  "hstrlen": {
+    "arity": 3,
+    "flags": [
+      "readonly",
       "fast"
     ],
     "keyStart": 1,
@@ -682,9 +747,9 @@
     "flags": [
       "write"
     ],
-    "keyStart": 0,
-    "keyStop": 0,
-    "step": 0
+    "keyStart": 3,
+    "keyStop": 3,
+    "step": 1
   },
   "monitor": {
     "arity": 1,
@@ -794,7 +859,7 @@
       "readonly"
     ],
     "keyStart": 1,
-    "keyStop": 1,
+    "keyStop": -1,
     "step": 1
   },
   "pfdebug": {
@@ -1283,7 +1348,7 @@
     "step": 1
   },
   "spop": {
-    "arity": 2,
+    "arity": -2,
     "flags": [
       "write",
       "noscript",
@@ -1416,6 +1481,16 @@
     ],
     "keyStart": 1,
     "keyStop": 1,
+    "step": 1
+  },
+  "unlink": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": -1,
     "step": 1
   },
   "unsubscribe": {
