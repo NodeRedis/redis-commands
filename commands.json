@@ -984,6 +984,17 @@
     "keyStop": 0,
     "step": 0
   },
+  "quit": {
+    "arity": 1,
+    "flags": [
+      "loading",
+      "stale",
+      "readonly"
+    ],
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
+  },
   "randomkey": {
     "arity": 1,
     "flags": [

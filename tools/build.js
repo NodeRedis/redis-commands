@@ -24,6 +24,21 @@ redis.command(function (err, res) {
     return prev;
   }, {});
 
+  // Future proof. Redis might implement this soon
+  if (!commands.quit) {
+    commands.quit = {
+      arity: 1,
+      flags: [
+        'loading',
+        'stale',
+        'readonly'
+      ],
+      keyStart: 0,
+      keyStop: 0,
+      step: 0
+    }
+  }
+
   // Use json-stable-stringify instead fo JSON.stringify
   // for easier diffing
   var content = stringify(commands, { space: '  ' });

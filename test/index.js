@@ -37,6 +37,7 @@ describe('redis-commands', function () {
       expect(commands.hasFlag('set', 'fast')).to.eql(false);
       expect(commands.hasFlag('set', 'readonly')).to.eql(false);
       expect(commands.hasFlag('select', 'denyoom')).to.eql(false);
+      expect(commands.hasFlag('quit', 'denyoom')).to.eql(false);
     });
   });
 
