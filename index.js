@@ -12,6 +12,13 @@ var commands = require('./commands');
  */
 exports.list = Object.keys(commands);
 
+var flags = {};
+exports.list.forEach(function (commandName) {
+  flags[commandName] = commands[commandName].flags.reduce(function (flags, flag) {
+    flags[flag] = true;
+    return flags;
+  }, {});
+});
 /**
  * Check if the command exists
  *
@@ -33,20 +40,11 @@ exports.exists = function (commandName) {
  * @public
  */
 exports.hasFlag = function (commandName, flag) {
-  var command = commands[commandName];
-  if (!command) {
+  if (!flags[commandName]) {
     throw new Error('Unknown command ' + commandName);
   }
 
-  var flags = command.flags;
-
-  for (var i = 0; i < flags.length; i++) {
-    if (flags[i] === flag) {
-      return true;
-    }
-  }
-
-  return false;
+  return Boolean(flags[commandName][flag]);
 };
 
 /**
