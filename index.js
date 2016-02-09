@@ -13,6 +13,17 @@ var commands = require('./commands');
 exports.list = Object.keys(commands);
 
 /**
+ * Check if the command exists
+ *
+ * @param {string} commandName - the command name
+ * @return {boolean} result
+ * @public
+ */
+exports.exists = function (commandName) {
+  return Boolean(commands[commandName]);
+};
+
+/**
  * Check if the command has the flag
  *
  * Some of possible flags: readonly, noscript, loading
