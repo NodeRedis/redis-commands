@@ -26,7 +26,23 @@ describe('redis-commands', function () {
     });
   });
 
-  describe('.hasFlag', function () {
+  describe('.exists()', function () {
+    it('should return true for existing commands', function () {
+      expect(commands.exists('set')).to.eql(true);
+      expect(commands.exists('get')).to.eql(true);
+      expect(commands.exists('cluster')).to.eql(true);
+      expect(commands.exists('quit')).to.eql(true);
+      expect(commands.exists('config')).to.eql(true);
+    });
+
+    it('should return false for non-existing commands', function () {
+      expect(commands.exists('SET')).to.eql(false);
+      expect(commands.exists('set get')).to.eql(false);
+      expect(commands.exists('other-command')).to.eql(false);
+    });
+  });
+
+  describe('.hasFlag()', function () {
     it('should return true if the command has the flag', function () {
       expect(commands.hasFlag('set', 'write')).to.eql(true);
       expect(commands.hasFlag('set', 'denyoom')).to.eql(true);
@@ -41,7 +57,7 @@ describe('redis-commands', function () {
     });
   });
 
-  describe('.getKeyIndexes', function () {
+  describe('.getKeyIndexes()', function () {
     var index = commands.getKeyIndexes;
 
     it('should return key indexes', function () {

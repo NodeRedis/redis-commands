@@ -24,13 +24,20 @@ commands.list.forEach(function (command) {
 });
 ```
 
-`.hasFlag` is used to check if the command has the flag:
+`.exists()` is used to check if the command exists:
+
+```javascript
+commands.exists('set') // true
+commands.exists('other-command') // false
+```
+
+`.hasFlag()` is used to check if the command has the flag:
 
 ```javascript
 commands.hasFlag('set', 'readonly') // false
 ```
 
-`.getKeyIndexes` is used to get the indexes of keys in the command arguments:
+`.getKeyIndexes()` is used to get the indexes of keys in the command arguments:
 
 ```javascript
 commands.getKeyIndexes('set', ['key', 'value']) // [0]
