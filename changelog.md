@@ -2,6 +2,7 @@
 
 Features
 
+-  Added build sanity check for unhandled commands with moveable keys
 -  Rebuild the commands with the newest unstable release
 
 Bugfix
