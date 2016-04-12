@@ -131,9 +131,10 @@ exports.getKeyIndexes = function (commandName, args, options) {
     }
     break;
   default:
-    keyStart = command.keyStart - 1;
-    keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
-    if (keyStart >= 0 && keyStop <= args.length && keyStop > keyStart && command.step > 0) {
+    // step has to be at least one in this case, otherwise the command does not contain a key
+    if (command.step > 0) {
+      keyStart = command.keyStart - 1;
+      keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
       for (i = keyStart; i < keyStop; i += command.step) {
         keys.push(i);
       }
