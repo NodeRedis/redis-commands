@@ -14,8 +14,12 @@ redis.command(function (err, res) {
   }
 
   var commands = res.reduce(function (prev, current) {
+    // https://github.com/antirez/redis/issues/2598
+    if (current[0] === 'brpop' && current[4] === 1) {
+      current[4] = -2;
+    }
     prev[current[0]] = {
-      arity: current[1],
+      arity: current[1] || 1, // https://github.com/antirez/redis/pull/2986
       flags: current[2],
       keyStart: current[3],
       keyStop: current[4],
@@ -24,7 +28,8 @@ redis.command(function (err, res) {
     return prev;
   }, {});
 
-  // Future proof. Redis might implement this soon
+  // Future proof. Redis might implement this at some point
+  // https://github.com/antirez/redis/pull/2982
   if (!commands.quit) {
     commands.quit = {
       arity: 1,

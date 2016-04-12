@@ -106,7 +106,7 @@
       "noscript"
     ],
     "keyStart": 1,
-    "keyStop": 1,
+    "keyStop": -2,
     "step": 1
   },
   "brpoplpush": {
@@ -141,7 +141,7 @@
     "step": 0
   },
   "command": {
-    "arity": 0,
+    "arity": 1,
     "flags": [
       "readonly",
       "loading",
