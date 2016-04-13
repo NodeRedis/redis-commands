@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "posttest": "npm run coverage && npm run coverage:check",
+    "coverage": "node ./node_modules/istanbul/lib/cli.js cover --preserve-comments ./node_modules/mocha/bin/_mocha -- -R spec",
+    "coverage:check": "node ./node_modules/istanbul/lib/cli.js check-coverage --branch 100 --statement 100",
     "build": "node tools/build"
   },
   "repository": {
@@ -25,7 +28,8 @@
   "devDependencies": {
     "chai": "^3.4.0",
     "codeclimate-test-reporter": "^0.3.1",
-    "ioredis": "^1.0.8",
+    "ioredis": "^2.0.0-rc2",
+    "istanbul": "^0.4.3",
     "json-stable-stringify": "^1.0.0",
     "mocha": "^2.2.1"
   }
