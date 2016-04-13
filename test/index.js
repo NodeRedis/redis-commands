@@ -55,13 +55,30 @@ describe('redis-commands', function () {
       expect(commands.hasFlag('select', 'denyoom')).to.eql(false);
       expect(commands.hasFlag('quit', 'denyoom')).to.eql(false);
     });
+
+    it('should throw on unknown commands', function () {
+      expect(function () { commands.hasFlag('UNKNOWN'); }).to.throw(Error);
+    });
   });
 
   describe('.getKeyIndexes()', function () {
     var index = commands.getKeyIndexes;
 
+    it('should throw on unknown commands', function () {
+      expect(function () { index('UNKNOWN'); }).to.throw(Error);
+    });
+
+    it('should throw on faulty args', function () {
+      expect(function () { index('get', 'foo'); }).to.throw(Error);
+    });
+
+    it('should return an empty array if no keys exist', function () {
+      expect(index('auth', [])).to.eql([]);
+    });
+
     it('should return key indexes', function () {
       expect(index('set', ['foo', 'bar'])).to.eql([0]);
+      expect(index('del', ['foo'])).to.eql([0]);
       expect(index('get', ['foo'])).to.eql([0]);
       expect(index('mget', ['foo', 'bar'])).to.eql([0, 1]);
       expect(index('mset', ['foo', 'v1', 'bar', 'v2'])).to.eql([0, 2]);
@@ -70,6 +87,9 @@ describe('redis-commands', function () {
       expect(index('evalsha', ['23123', '2', 'foo', 'bar', 'zoo'])).to.eql([2, 3]);
       expect(index('sort', ['key'])).to.eql([0]);
       expect(index('zunionstore', ['out', '2', 'zset1', 'zset2', 'WEIGHTS', '2', '3'])).to.eql([0, 2, 3]);
+      expect(index('migrate', ['127.0.0.1', 6379, 'foo', 0, 0, 'COPY'])).to.eql([2]);
+      expect(index('migrate', ['127.0.0.1', 6379, '', 0, 0, 'REPLACE', 'KEYS', 'foo', 'bar'])).to.eql([7, 8]);
+      expect(index('migrate', ['127.0.0.1', 6379, '', 0, 0, 'KEYS', 'foo', 'bar'])).to.eql([6, 7]);
     });
 
     it('should support numeric argument', function () {
@@ -89,7 +109,7 @@ describe('redis-commands', function () {
         expect(index('sort', ['key', 'BY', 'hash:*->field'], {
           parseExternalKey: true
         })).to.eql([0, [2, 6]]);
-        expect(index('sort', ['key', 'BY', 'hash:*->field', 'LIMIT', 2, 3, 'GET', 'gk', 'GET', '#', 'Get', 'gh->f*', 'DESC', 'ALPHA', 'STORE', 'store'], {
+        expect(index('sort', ['key', 'BY', 'hash:*->field', 'LIMIT', 2, 3, 'GET', new Buffer('gk'), 'GET', '#', 'Get', 'gh->f*', 'DESC', 'ALPHA', 'STORE', 'store'], {
           parseExternalKey: true
         })).to.eql([0, [2, 6], [7, 2], [11, 2], 15]);
       });
