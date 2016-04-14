@@ -60,6 +60,16 @@
     "keyStop": 1,
     "step": 1
   },
+  "bitfield": {
+    "arity": -2,
+    "flags": [
+      "write",
+      "denyoom"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
   "bitop": {
     "arity": -4,
     "flags": [
@@ -96,7 +106,7 @@
       "noscript"
     ],
     "keyStart": 1,
-    "keyStop": 1,
+    "keyStop": -2,
     "step": 1
   },
   "brpoplpush": {
@@ -131,7 +141,7 @@
     "step": 0
   },
   "command": {
-    "arity": 0,
+    "arity": 1,
     "flags": [
       "readonly",
       "loading",
@@ -351,7 +361,7 @@
   "georadius": {
     "arity": -6,
     "flags": [
-      "readonly"
+      "write"
     ],
     "keyStart": 1,
     "keyStop": 1,
@@ -360,7 +370,7 @@
   "georadiusbymember": {
     "arity": -5,
     "flags": [
-      "readonly"
+      "write"
     ],
     "keyStart": 1,
     "keyStop": 1,
@@ -745,11 +755,12 @@
   "migrate": {
     "arity": -6,
     "flags": [
-      "write"
+      "write",
+      "movablekeys"
     ],
-    "keyStart": 3,
-    "keyStop": 3,
-    "step": 1
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
   },
   "monitor": {
     "arity": 1,

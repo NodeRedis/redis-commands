@@ -73,11 +73,12 @@ exports.getKeyIndexes = function (commandName, args, options) {
     throw new Error('Expect args to be an array');
   }
 
-  var parseExternalKey = options && options.parseExternalKey;
-
   var keys = [];
-  var i, range, keyStart, keyStop;
+  var i, keyStart, keyStop, parseExternalKey;
   switch (commandName) {
+  case 'zunionstore':
+  case 'zinterstore':
+    keys.push(0);
   case 'eval':
   case 'evalsha':
     keyStop = Number(args[1]) + 2;
@@ -86,6 +87,7 @@ exports.getKeyIndexes = function (commandName, args, options) {
     }
     break;
   case 'sort':
+    parseExternalKey = options && options.parseExternalKey;
     keys.push(0);
     for (i = 1; i < args.length - 1; i++) {
       if (typeof args[i] !== 'string') {
@@ -114,18 +116,25 @@ exports.getKeyIndexes = function (commandName, args, options) {
       }
     }
     break;
-  case 'zunionstore':
-  case 'zinterstore':
-    keys.push(0);
-    keyStop = Number(args[1]) + 2;
-    for (i = 2; i < keyStop; i++) {
-      keys.push(i);
+  case 'migrate':
+    if (args[2] === '') {
+      for (i = 5; i < args.length - 1; i++) {
+        if (args[i].toUpperCase() === 'KEYS') {
+          for (var j = i + 1; j < args.length; j++) {
+            keys.push(j);
+          }
+          break;
+        }
+      }
+    } else {
+      keys.push(2);
     }
     break;
   default:
-    keyStart = command.keyStart - 1;
-    keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
-    if (keyStart >= 0 && keyStop <= args.length && keyStop > keyStart && command.step > 0) {
+    // step has to be at least one in this case, otherwise the command does not contain a key
+    if (command.step > 0) {
+      keyStart = command.keyStart - 1;
+      keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
       for (i = keyStart; i < keyStop; i += command.step) {
         keys.push(i);
       }
