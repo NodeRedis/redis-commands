@@ -1,3 +1,9 @@
+## v.1.3.0 - 18 Oct, 2016
+
+Features
+
+-  Rebuild the commands with the newest Redis unstable release
+
 ## v.1.2.0 - 21 Apr, 2016
 
 Features
