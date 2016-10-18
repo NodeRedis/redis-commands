@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-var commands = require('./commands');
+var commands = require('./commands')
 
 /**
  * Redis command list
@@ -10,15 +10,15 @@ var commands = require('./commands');
  * @var {string[]}
  * @public
  */
-exports.list = Object.keys(commands);
+exports.list = Object.keys(commands)
 
-var flags = {};
+var flags = {}
 exports.list.forEach(function (commandName) {
   flags[commandName] = commands[commandName].flags.reduce(function (flags, flag) {
-    flags[flag] = true;
-    return flags;
-  }, {});
-});
+    flags[flag] = true
+    return flags
+  }, {})
+})
 /**
  * Check if the command exists
  *
@@ -27,8 +27,8 @@ exports.list.forEach(function (commandName) {
  * @public
  */
 exports.exists = function (commandName) {
-  return Boolean(commands[commandName]);
-};
+  return Boolean(commands[commandName])
+}
 
 /**
  * Check if the command has the flag
@@ -41,11 +41,11 @@ exports.exists = function (commandName) {
  */
 exports.hasFlag = function (commandName, flag) {
   if (!flags[commandName]) {
-    throw new Error('Unknown command ' + commandName);
+    throw new Error('Unknown command ' + commandName)
   }
 
-  return Boolean(flags[commandName][flag]);
-};
+  return Boolean(flags[commandName][flag])
+}
 
 /**
  * Get indexes of keys in the command arguments
@@ -64,91 +64,92 @@ exports.hasFlag = function (commandName, flag) {
  * ```
  */
 exports.getKeyIndexes = function (commandName, args, options) {
-  var command = commands[commandName];
+  var command = commands[commandName]
   if (!command) {
-    throw new Error('Unknown command ' + commandName);
+    throw new Error('Unknown command ' + commandName)
   }
 
   if (!Array.isArray(args)) {
-    throw new Error('Expect args to be an array');
+    throw new Error('Expect args to be an array')
   }
 
-  var keys = [];
-  var i, keyStart, keyStop, parseExternalKey;
+  var keys = []
+  var i, keyStart, keyStop, parseExternalKey
   switch (commandName) {
-  case 'zunionstore':
-  case 'zinterstore':
-    keys.push(0);
-  case 'eval':
-  case 'evalsha':
-    keyStop = Number(args[1]) + 2;
-    for (i = 2; i < keyStop; i++) {
-      keys.push(i);
-    }
-    break;
-  case 'sort':
-    parseExternalKey = options && options.parseExternalKey;
-    keys.push(0);
-    for (i = 1; i < args.length - 1; i++) {
-      if (typeof args[i] !== 'string') {
-        continue;
+    case 'zunionstore':
+    case 'zinterstore':
+      keys.push(0)
+    // fall through
+    case 'eval':
+    case 'evalsha':
+      keyStop = Number(args[1]) + 2
+      for (i = 2; i < keyStop; i++) {
+        keys.push(i)
       }
-      var directive = args[i].toUpperCase();
-      if (directive === 'GET') {
-        i += 1;
-        if (args[i] !== '#') {
+      break
+    case 'sort':
+      parseExternalKey = options && options.parseExternalKey
+      keys.push(0)
+      for (i = 1; i < args.length - 1; i++) {
+        if (typeof args[i] !== 'string') {
+          continue
+        }
+        var directive = args[i].toUpperCase()
+        if (directive === 'GET') {
+          i += 1
+          if (args[i] !== '#') {
+            if (parseExternalKey) {
+              keys.push([i, getExternalKeyNameLength(args[i])])
+            } else {
+              keys.push(i)
+            }
+          }
+        } else if (directive === 'BY') {
+          i += 1
           if (parseExternalKey) {
-            keys.push([i, getExternalKeyNameLength(args[i])]);
+            keys.push([i, getExternalKeyNameLength(args[i])])
           } else {
-            keys.push(i);
+            keys.push(i)
           }
-        }
-      } else if (directive === 'BY') {
-        i += 1;
-        if (parseExternalKey) {
-          keys.push([i, getExternalKeyNameLength(args[i])]);
-        } else {
-          keys.push(i);
-        }
-      } else if (directive === 'STORE') {
-        i += 1;
-        keys.push(i);
-      }
-    }
-    break;
-  case 'migrate':
-    if (args[2] === '') {
-      for (i = 5; i < args.length - 1; i++) {
-        if (args[i].toUpperCase() === 'KEYS') {
-          for (var j = i + 1; j < args.length; j++) {
-            keys.push(j);
-          }
-          break;
+        } else if (directive === 'STORE') {
+          i += 1
+          keys.push(i)
         }
       }
-    } else {
-      keys.push(2);
-    }
-    break;
-  default:
+      break
+    case 'migrate':
+      if (args[2] === '') {
+        for (i = 5; i < args.length - 1; i++) {
+          if (args[i].toUpperCase() === 'KEYS') {
+            for (var j = i + 1; j < args.length; j++) {
+              keys.push(j)
+            }
+            break
+          }
+        }
+      } else {
+        keys.push(2)
+      }
+      break
+    default:
     // step has to be at least one in this case, otherwise the command does not contain a key
-    if (command.step > 0) {
-      keyStart = command.keyStart - 1;
-      keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1;
-      for (i = keyStart; i < keyStop; i += command.step) {
-        keys.push(i);
+      if (command.step > 0) {
+        keyStart = command.keyStart - 1
+        keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1
+        for (i = keyStart; i < keyStop; i += command.step) {
+          keys.push(i)
+        }
       }
-    }
-    break;
+      break
   }
 
-  return keys;
-};
+  return keys
+}
 
-function getExternalKeyNameLength(key) {
+function getExternalKeyNameLength (key) {
   if (typeof key !== 'string') {
-    key = String(key);
+    key = String(key)
   }
-  var hashPos = key.indexOf('->');
-  return hashPos === -1 ? key.length : hashPos;
+  var hashPos = key.indexOf('->')
+  return hashPos === -1 ? key.length : hashPos
 }
