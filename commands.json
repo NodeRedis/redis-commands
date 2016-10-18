@@ -12,7 +12,7 @@
   "asking": {
     "arity": 1,
     "flags": [
-      "readonly"
+      "fast"
     ],
     "keyStart": 0,
     "keyStop": 0,
@@ -21,7 +21,6 @@
   "auth": {
     "arity": 2,
     "flags": [
-      "readonly",
       "noscript",
       "loading",
       "stale",
@@ -34,7 +33,6 @@
   "bgrewriteaof": {
     "arity": 1,
     "flags": [
-      "readonly",
       "admin"
     ],
     "keyStart": 0,
@@ -42,9 +40,8 @@
     "step": 0
   },
   "bgsave": {
-    "arity": 1,
+    "arity": -1,
     "flags": [
-      "readonly",
       "admin"
     ],
     "keyStart": 0,
@@ -123,7 +120,7 @@
   "client": {
     "arity": -2,
     "flags": [
-      "readonly",
+      "admin",
       "noscript"
     ],
     "keyStart": 0,
@@ -133,7 +130,6 @@
   "cluster": {
     "arity": -2,
     "flags": [
-      "readonly",
       "admin"
     ],
     "keyStart": 0,
@@ -143,7 +139,6 @@
   "command": {
     "arity": 1,
     "flags": [
-      "readonly",
       "loading",
       "stale"
     ],
@@ -154,8 +149,8 @@
   "config": {
     "arity": -2,
     "flags": [
-      "readonly",
       "admin",
+      "loading",
       "stale"
     ],
     "keyStart": 0,
@@ -173,7 +168,7 @@
     "step": 0
   },
   "debug": {
-    "arity": -2,
+    "arity": -1,
     "flags": [
       "admin",
       "noscript"
@@ -216,7 +211,6 @@
   "discard": {
     "arity": 1,
     "flags": [
-      "readonly",
       "noscript",
       "fast"
     ],
@@ -236,7 +230,6 @@
   "echo": {
     "arity": 2,
     "flags": [
-      "readonly",
       "fast"
     ],
     "keyStart": 0,
@@ -515,6 +508,16 @@
     "keyStop": 1,
     "step": 1
   },
+  "host:": {
+    "arity": -1,
+    "flags": [
+      "loading",
+      "stale"
+    ],
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
+  },
   "hscan": {
     "arity": -3,
     "flags": [
@@ -603,7 +606,6 @@
   "info": {
     "arity": -1,
     "flags": [
-      "readonly",
       "loading",
       "stale"
     ],
@@ -624,7 +626,6 @@
   "lastsave": {
     "arity": 1,
     "flags": [
-      "readonly",
       "random",
       "fast"
     ],
@@ -635,7 +636,6 @@
   "latency": {
     "arity": -2,
     "flags": [
-      "readonly",
       "admin",
       "noscript",
       "loading",
@@ -696,7 +696,7 @@
     "step": 1
   },
   "lpushx": {
-    "arity": 3,
+    "arity": -3,
     "flags": [
       "write",
       "denyoom",
@@ -743,6 +743,15 @@
     "keyStop": 1,
     "step": 1
   },
+  "memory": {
+    "arity": -2,
+    "flags": [
+      "readonly"
+    ],
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
+  },
   "mget": {
     "arity": -2,
     "flags": [
@@ -762,10 +771,19 @@
     "keyStop": 0,
     "step": 0
   },
+  "module": {
+    "arity": -2,
+    "flags": [
+      "admin",
+      "noscript"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
+  },
   "monitor": {
     "arity": 1,
     "flags": [
-      "readonly",
       "admin",
       "noscript"
     ],
@@ -806,7 +824,6 @@
   "multi": {
     "arity": 1,
     "flags": [
-      "readonly",
       "noscript",
       "fast"
     ],
@@ -895,7 +912,7 @@
   "pfselftest": {
     "arity": 1,
     "flags": [
-      "readonly"
+      "admin"
     ],
     "keyStart": 0,
     "keyStop": 0,
@@ -904,9 +921,18 @@
   "ping": {
     "arity": -1,
     "flags": [
-      "readonly",
       "stale",
       "fast"
+    ],
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
+  },
+  "post": {
+    "arity": -1,
+    "flags": [
+      "loading",
+      "stale"
     ],
     "keyStart": 0,
     "keyStop": 0,
@@ -925,7 +951,6 @@
   "psubscribe": {
     "arity": -2,
     "flags": [
-      "readonly",
       "pubsub",
       "noscript",
       "loading",
@@ -959,7 +984,6 @@
   "publish": {
     "arity": 3,
     "flags": [
-      "readonly",
       "pubsub",
       "loading",
       "stale",
@@ -972,7 +996,6 @@
   "pubsub": {
     "arity": -2,
     "flags": [
-      "readonly",
       "pubsub",
       "random",
       "loading",
@@ -985,7 +1008,6 @@
   "punsubscribe": {
     "arity": -1,
     "flags": [
-      "readonly",
       "pubsub",
       "noscript",
       "loading",
@@ -1019,7 +1041,6 @@
   "readonly": {
     "arity": 1,
     "flags": [
-      "readonly",
       "fast"
     ],
     "keyStart": 0,
@@ -1029,7 +1050,6 @@
   "readwrite": {
     "arity": 1,
     "flags": [
-      "readonly",
       "fast"
     ],
     "keyStart": 0,
@@ -1058,7 +1078,6 @@
   "replconf": {
     "arity": -1,
     "flags": [
-      "readonly",
       "admin",
       "noscript",
       "loading",
@@ -1132,7 +1151,7 @@
     "step": 1
   },
   "rpushx": {
-    "arity": 3,
+    "arity": -3,
     "flags": [
       "write",
       "denyoom",
@@ -1156,7 +1175,6 @@
   "save": {
     "arity": 1,
     "flags": [
-      "readonly",
       "admin",
       "noscript"
     ],
@@ -1187,7 +1205,6 @@
   "script": {
     "arity": -2,
     "flags": [
-      "readonly",
       "noscript"
     ],
     "keyStart": 0,
@@ -1217,7 +1234,6 @@
   "select": {
     "arity": 2,
     "flags": [
-      "readonly",
       "loading",
       "fast"
     ],
@@ -1279,7 +1295,6 @@
   "shutdown": {
     "arity": -1,
     "flags": [
-      "readonly",
       "admin",
       "loading",
       "stale"
@@ -1332,7 +1347,7 @@
   "slowlog": {
     "arity": -2,
     "flags": [
-      "readonly"
+      "admin"
     ],
     "keyStart": 0,
     "keyStop": 0,
@@ -1373,7 +1388,6 @@
     "arity": -2,
     "flags": [
       "write",
-      "noscript",
       "random",
       "fast"
     ],
@@ -1424,7 +1438,6 @@
   "subscribe": {
     "arity": -2,
     "flags": [
-      "readonly",
       "pubsub",
       "noscript",
       "loading",
@@ -1463,6 +1476,16 @@
     "keyStop": -1,
     "step": 1
   },
+  "swapdb": {
+    "arity": 3,
+    "flags": [
+      "write",
+      "fast"
+    ],
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
+  },
   "sync": {
     "arity": 1,
     "flags": [
@@ -1477,13 +1500,22 @@
   "time": {
     "arity": 1,
     "flags": [
-      "readonly",
       "random",
       "fast"
     ],
     "keyStart": 0,
     "keyStop": 0,
     "step": 0
+  },
+  "touch": {
+    "arity": -2,
+    "flags": [
+      "readonly",
+      "fast"
+    ],
+    "keyStart": 1,
+    "keyStop": 1,
+    "step": 1
   },
   "ttl": {
     "arity": 2,
@@ -1518,7 +1550,6 @@
   "unsubscribe": {
     "arity": -1,
     "flags": [
-      "readonly",
       "pubsub",
       "noscript",
       "loading",
@@ -1531,7 +1562,6 @@
   "unwatch": {
     "arity": 1,
     "flags": [
-      "readonly",
       "noscript",
       "fast"
     ],
@@ -1542,7 +1572,6 @@
   "wait": {
     "arity": 3,
     "flags": [
-      "readonly",
       "noscript"
     ],
     "keyStart": 0,
@@ -1552,7 +1581,6 @@
   "watch": {
     "arity": -2,
     "flags": [
-      "readonly",
       "noscript",
       "fast"
     ],
