@@ -1,3 +1,9 @@
+## v.1.3.1 - 25 Jan, 2017
+
+Bugfix
+
+-  Fix require for for webpack
+
 ## v.1.3.0 - 20 Oct, 2016
 
 Features
