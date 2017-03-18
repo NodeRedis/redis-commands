@@ -35,6 +35,6 @@
     "json-stable-stringify": "^1.0.0",
     "mocha": "^3.0.0",
     "snazzy": "^6.0.0",
-    "standard": "^8.0.0"
+    "standard": "^9.0.2"
   }
 }
