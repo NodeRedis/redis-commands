@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/NodeRedis/redis-commonds",
   "devDependencies": {
-    "chai": "^3.4.0",
+    "chai": "^4.0.1",
     "codeclimate-test-reporter": "^0.4.0",
     "ioredis": "^3.0.0",
     "istanbul": "^0.4.3",
