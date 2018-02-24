@@ -111,7 +111,7 @@ describe('redis-commands', function () {
         expect(index('sort', ['key', 'BY', 'hash:*->field'], {
           parseExternalKey: true
         })).to.eql([0, [2, 6]])
-        expect(index('sort', ['key', 'BY', 'hash:*->field', 'LIMIT', 2, 3, 'GET', new Buffer('gk'), 'GET', '#', 'Get', 'gh->f*', 'DESC', 'ALPHA', 'STORE', 'store'], {
+        expect(index('sort', ['key', 'BY', 'hash:*->field', 'LIMIT', 2, 3, 'GET', Buffer.from('gk'), 'GET', '#', 'Get', 'gh->f*', 'DESC', 'ALPHA', 'STORE', 'store'], {
           parseExternalKey: true
         })).to.eql([0, [2, 6], [7, 2], [11, 2], 15])
       })

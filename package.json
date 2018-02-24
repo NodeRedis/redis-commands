@@ -32,9 +32,9 @@
     "codeclimate-test-reporter": "^0.4.0",
     "ioredis": "^3.0.0",
     "istanbul": "^0.4.3",
-    "json-stable-stringify": "^1.0.0",
-    "mocha": "^3.0.0",
-    "snazzy": "^6.0.0",
-    "standard": "^9.0.2"
+    "safe-stable-stringify": "^1.0.0",
+    "mocha": "^5.0.0",
+    "snazzy": "^7.0.0",
+    "standard": "^11.0.0"
   }
 }
