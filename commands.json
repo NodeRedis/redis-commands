@@ -297,7 +297,7 @@
     "step": 1
   },
   "flushall": {
-    "arity": -1,
+    "arity": 1,
     "flags": [
       "write"
     ],
@@ -306,7 +306,7 @@
     "step": 0
   },
   "flushdb": {
-    "arity": -1,
+    "arity": 1,
     "flags": [
       "write"
     ],
@@ -696,7 +696,7 @@
     "step": 1
   },
   "lpushx": {
-    "arity": -3,
+    "arity": 3,
     "flags": [
       "write",
       "denyoom",
@@ -743,15 +743,6 @@
     "keyStop": 1,
     "step": 1
   },
-  "memory": {
-    "arity": -2,
-    "flags": [
-      "readonly"
-    ],
-    "keyStart": 0,
-    "keyStop": 0,
-    "step": 0
-  },
   "mget": {
     "arity": -2,
     "flags": [
@@ -770,16 +761,6 @@
     "keyStart": 0,
     "keyStop": 0,
     "step": 0
-  },
-  "module": {
-    "arity": -2,
-    "flags": [
-      "admin",
-      "noscript"
-    ],
-    "keyStart": 1,
-    "keyStop": 1,
-    "step": 1
   },
   "monitor": {
     "arity": 1,
@@ -1151,7 +1132,7 @@
     "step": 1
   },
   "rpushx": {
-    "arity": -3,
+    "arity": 3,
     "flags": [
       "write",
       "denyoom",
@@ -1476,16 +1457,6 @@
     "keyStop": -1,
     "step": 1
   },
-  "swapdb": {
-    "arity": 3,
-    "flags": [
-      "write",
-      "fast"
-    ],
-    "keyStart": 0,
-    "keyStop": 0,
-    "step": 0
-  },
   "sync": {
     "arity": 1,
     "flags": [
@@ -1535,16 +1506,6 @@
     ],
     "keyStart": 1,
     "keyStop": 1,
-    "step": 1
-  },
-  "unlink": {
-    "arity": -2,
-    "flags": [
-      "write",
-      "fast"
-    ],
-    "keyStart": 1,
-    "keyStop": -1,
     "step": 1
   },
   "unsubscribe": {
