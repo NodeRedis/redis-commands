@@ -56,7 +56,7 @@ redis.command().then(function (res) {
 
   // Use safe-stable-stringify instead fo JSON.stringify
   // for easier diffing
-  var content = stringify(commands, { space: '  ' })
+  var content = stringify(commands, null, '  ')
 
   fs.writeFileSync(commandPath, content)
 })
