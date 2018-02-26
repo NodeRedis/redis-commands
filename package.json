@@ -1,6 +1,6 @@
 {
   "name": "redis-commands",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Redis commands",
   "main": "index.js",
   "scripts": {
