@@ -29,7 +29,7 @@
   "homepage": "https://github.com/NodeRedis/redis-commands",
   "devDependencies": {
     "chai": "^4.0.1",
-    "codeclimate-test-reporter": "^0.4.0",
+    "codeclimate-test-reporter": "^0.5.1",
     "ioredis": "^3.0.0",
     "istanbul": "^0.4.3",
     "safe-stable-stringify": "^1.0.0",
