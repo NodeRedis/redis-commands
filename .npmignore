@@ -3,3 +3,6 @@ test/
 
 # Coverage directory used by tools like istanbul
 coverage
+
+# Config used by Travis CI
+.travis.yml
