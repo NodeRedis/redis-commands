@@ -1735,15 +1735,15 @@
     "step": 1
   },
   "xreadgroup": {
-    "arity": -3,
+    "arity": -1,
     "flags": [
       "write",
       "noscript",
       "movablekeys"
     ],
-    "keyStart": 1,
-    "keyStop": 1,
-    "step": 1
+    "keyStart": 0,
+    "keyStop": 0,
+    "step": 0
   },
   "xrevrange": {
     "arity": -4,
