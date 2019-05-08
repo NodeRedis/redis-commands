@@ -131,6 +131,19 @@ exports.getKeyIndexes = function (commandName, args, options) {
         keys.push(2)
       }
       break
+    case 'xread':
+      for (i = 0; i < args.length - 1; i++) {
+        if (args[i].toUpperCase() === 'STREAMS') {
+          var streamStart = i + 1;
+          var streamsAndIdsCount = (args.length-streamStart);
+          if(streamsAndIdsCount%2!=0) throw new Error("ID count doesnt match to Stream count")
+          for (var j=streamStart; j<streamStart+(streamsAndIdsCount/2) ;j++) {
+            keys.push(j)
+          }
+          break
+        }
+      }
+      break
     default:
     // step has to be at least one in this case, otherwise the command does not contain a key
       if (command.step > 0) {
