@@ -133,10 +133,9 @@ exports.getKeyIndexes = function (commandName, args, options) {
       break
     case 'xreadgroup':
     case 'xread':
-    // keys are 1st half of the args after STREAMS argument
+      // Keys are 1st half of the args after STREAMS argument.
       for (i = commandName === 'xread' ? 0 : 3; i < args.length - 1; i++) {
         if (String(args[i]).toUpperCase() === 'STREAMS') {
-          
           for (j = i + 1; j <= i + ((args.length - 1 - i) / 2); j++) {
             keys.push(j)
           }
@@ -145,7 +144,8 @@ exports.getKeyIndexes = function (commandName, args, options) {
       }
       break
     default:
-    // step has to be at least one in this case, otherwise the command does not contain a key
+      // Step has to be at least one in this case, otherwise the command does
+      // not contain a key.
       if (command.step > 0) {
         keyStart = command.keyStart - 1
         keyStop = command.keyStop > 0 ? command.keyStop : args.length + command.keyStop + 1
