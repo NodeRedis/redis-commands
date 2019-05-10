@@ -133,8 +133,10 @@ exports.getKeyIndexes = function (commandName, args, options) {
       break
     case 'xreadgroup':
     case 'xread':
-      for (i = 0; i < args.length - 1; i++) {
+    // keys are 1st half of the args after STREAMS argument
+      for (i = commandName === 'xread' ? 0 : 3; i < args.length - 1; i++) {
         if (String(args[i]).toUpperCase() === 'STREAMS') {
+          
           for (j = i + 1; j <= i + ((args.length - 1 - i) / 2); j++) {
             keys.push(j)
           }
