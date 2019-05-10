@@ -92,6 +92,14 @@ describe('redis-commands', function () {
       expect(index('migrate', ['127.0.0.1', 6379, 'foo', 0, 0, 'COPY'])).to.eql([2])
       expect(index('migrate', ['127.0.0.1', 6379, '', 0, 0, 'REPLACE', 'KEYS', 'foo', 'bar'])).to.eql([7, 8])
       expect(index('migrate', ['127.0.0.1', 6379, '', 0, 0, 'KEYS', 'foo', 'bar'])).to.eql([6, 7])
+      expect(index('xreadgroup', ['GROUP', 'group', 'consumer', 'COUNT', 10, 'BLOCK', 2000, 'NOACK', 'STREAMS', 'key1', 'key2', 'id1', 'id2'])).to.eql([9, 10])
+      expect(index('xreadgroup', ['GROUP', 'group', 'consumer', 'STREAMS', 'key1', 'id1'])).to.eql([4])
+      expect(index('xreadgroup', ['GROUP', 'group', 'consumer', 'STREAMS', 'key1', 'key2', 'id1', 'id2'])).to.eql([4, 5])
+      expect(index('xreadgroup', ['GROUP', 'group', 'consumer', 'STREAMS', 'key1', 'key2', 'key3', 'id1', 'id2', 'id3'])).to.eql([4, 5, 6])
+      expect(index('xread', ['COUNT', 10, 'BLOCK', 2000, 'STREAMS', 'key1', 'key2', 'id1', 'id2'])).to.eql([5, 6])
+      expect(index('xread', ['STREAMS', 'key1', 'id1'])).to.eql([1])
+      expect(index('xread', ['STREAMS', 'key1', 'key2', 'id1', 'id2'])).to.eql([1, 2])
+      expect(index('xread', ['STREAMS', 'key1', 'key2', 'key3', 'id1', 'id2', 'id3'])).to.eql([1, 2, 3])
     })
 
     it('should support numeric argument', function () {
