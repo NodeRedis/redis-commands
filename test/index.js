@@ -86,6 +86,7 @@ describe('redis-commands', function () {
       expect(index('mset', ['foo', 'v1', 'bar', 'v2'])).to.eql([0, 2])
       expect(index('hmset', ['key', 'foo', 'v1', 'bar', 'v2'])).to.eql([0])
       expect(index('blpop', ['key1', 'key2', '17'])).to.eql([0, 1])
+      expect(index('lpop', ['key', 'COUNT', '17'])).to.eql([0])
       expect(index('evalsha', ['23123', '2', 'foo', 'bar', 'zoo'])).to.eql([2, 3])
       expect(index('sort', ['key'])).to.eql([0])
       expect(index('zunionstore', ['out', '2', 'zset1', 'zset2', 'WEIGHTS', '2', '3'])).to.eql([0, 2, 3])
