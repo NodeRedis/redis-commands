@@ -1,3 +1,9 @@
+## v.1.6.0 - 25 Jul, 2020
+
+Features
+
+-  Updated commands list to Redis 6.06
+
 ## v.1.5.0 - 10 May, 2019
 
 Features
