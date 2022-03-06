@@ -1,8 +1,6 @@
 # Redis Commands
 
-[![Build Status](https://travis-ci.org/NodeRedis/redis-commands.png?branch=master)](https://travis-ci.org/NodeRedis/redis-commands)
-[![Code Climate](https://codeclimate.com/github/NodeRedis/redis-commands/badges/gpa.svg)](https://codeclimate.com/github/NodeRedis/redis-commands)
-[![Test Coverage](https://codeclimate.com/github/NodeRedis/redis-commands/badges/coverage.svg)](https://codeclimate.com/github/NodeRedis/redis-commands/coverage)
+[![Build Status](https://github.com/NodeRedis/redis-commands/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/NodeRedis/redis-commands/actions/workflows/main.yml?query=branch%3Amain)
 
 This module exports all the commands that Redis supports.
 
